@@ -120,6 +120,19 @@ void nmi_panic(struct pt_regs *regs, const char *msg)
 EXPORT_SYMBOL(nmi_panic);
 
 /**
+*	concat two strings
+*	@s1, s2
+*/
+char* concat(const char *s1, const char *s2)
+{
+    char *result = malloc(strlen(s1)+strlen(s2)+1);//+1 for the zero-terminator
+    //in real code you would check for errors in malloc here
+    strcpy(result, s1);
+    strcat(result, s2);
+    return result;
+}
+
+/**
  *	panic - halt the system
  *	@fmt: The text string to print
  *
@@ -171,6 +184,10 @@ void panic(const char *fmt, ...)
 	vsnprintf(buf, sizeof(buf), fmt, args);
 	va_end(args);
 	pr_emerg("Kernel panic - not syncing: %s\n", buf);
+	pr_emerg("FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU\n\
+		  UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU\n\
+		  UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU\n\
+		  UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU\n");
 #ifdef CONFIG_DEBUG_BUGVERBOSE
 	/*
 	 * Avoid nested stack-dumping if a panic occurs during oops processing
